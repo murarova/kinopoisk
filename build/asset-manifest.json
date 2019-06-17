@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/go-react-hw-03/static/css/main.dc473c4e.chunk.css",
+    "main.js": "/go-react-hw-03/static/js/main.397bd3c1.chunk.js",
+    "main.js.map": "/go-react-hw-03/static/js/main.397bd3c1.chunk.js.map",
+    "runtime~main.js": "/go-react-hw-03/static/js/runtime~main.a388b78c.js",
+    "runtime~main.js.map": "/go-react-hw-03/static/js/runtime~main.a388b78c.js.map",
+    "static/js/2.a483ab19.chunk.js": "/go-react-hw-03/static/js/2.a483ab19.chunk.js",
+    "static/js/2.a483ab19.chunk.js.map": "/go-react-hw-03/static/js/2.a483ab19.chunk.js.map",
+    "index.html": "/go-react-hw-03/index.html",
+    "precache-manifest.4907d70ca91c67e9e756b9dc4bb719cb.js": "/go-react-hw-03/precache-manifest.4907d70ca91c67e9e756b9dc4bb719cb.js",
+    "service-worker.js": "/go-react-hw-03/service-worker.js",
+    "static/css/main.dc473c4e.chunk.css.map": "/go-react-hw-03/static/css/main.dc473c4e.chunk.css.map"
+  }
+}
