@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../styles.module.css';
 
-class MovieListItem extends Component {
+class FavoritesListItem extends Component {
     state = {
-        inFavorites: false,
+        inFavorites: true,
     };
 
     toggleInFavorites = () =>
@@ -71,7 +71,7 @@ class MovieListItem extends Component {
     }
 }
 
-MovieListItem.propTypes = {
+FavoritesListItem.propTypes = {
     onFavoritesButtonClick: PropTypes.func.isRequired,
     posterPath: PropTypes.string,
     title: PropTypes.string,
@@ -80,7 +80,7 @@ MovieListItem.propTypes = {
     voteAverage: PropTypes.number,
 };
 
-MovieListItem.defaultProps = {
+FavoritesListItem.defaultProps = {
     posterPath: '',
     title: '',
     overview: '',
@@ -88,4 +88,4 @@ MovieListItem.defaultProps = {
     voteAverage: 0,
 };
 
-export default MovieListItem;
+export default FavoritesListItem;

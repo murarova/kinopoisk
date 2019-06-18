@@ -1,40 +1,33 @@
 /* eslint-disable camelcase */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import MovieListItem from '../MovieListItem/MovieListItem';
+import FavoritesListItem from '../FavoritesListItem/FavoritesListItem';
 import styles from '../styles.module.css';
 
-const TvShowsList = ({
-    items,
-    onButtonLoadMoreClick,
-    popular,
-    onFavoritesButtonClick,
-}) => {
+const FavoritesList = ({ items, onFavoritesButtonClick }) => {
     return (
         <Fragment>
-            {popular && (
-                <h2 className={`${styles.popularTitle} ${styles.container}`}>
-                    Popular TV Shows
-                </h2>
-            )}
             <div className={styles.container}>
                 {items.map(item => {
                     const {
                         id,
                         name,
+                        title,
                         overview,
                         poster_path,
-                        first_air_date,
+                        release_date,
                         vote_average,
+                        vote_count,
                     } = item;
                     return (
-                        <MovieListItem
+                        <FavoritesListItem
                             key={id}
-                            title={name}
+                            title={title || name}
                             overview={overview}
                             posterPath={poster_path}
-                            releaseDate={first_air_date}
+                            releaseDate={release_date}
                             voteAverage={vote_average}
+                            voteCount={vote_count}
                             onFavoritesButtonClick={() =>
                                 onFavoritesButtonClick(item)
                             }
@@ -42,22 +35,13 @@ const TvShowsList = ({
                     );
                 })}
             </div>
-            <button
-                className={styles.button}
-                onClick={onButtonLoadMoreClick}
-                type="button"
-            >
-                Load more
-            </button>
         </Fragment>
     );
 };
 
-TvShowsList.propTypes = {
+FavoritesList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onButtonLoadMoreClick: PropTypes.func.isRequired,
-    popular: PropTypes.bool.isRequired,
     onFavoritesButtonClick: PropTypes.func.isRequired,
 };
 
-export default TvShowsList;
+export default FavoritesList;
