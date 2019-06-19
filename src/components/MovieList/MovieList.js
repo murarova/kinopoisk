@@ -9,7 +9,8 @@ const MovieList = ({
     onButtonLoadMoreClick,
     popular,
     category,
-    onFavoritesButtonClick,
+    onFavoritesButtonToggle,
+    onMoreInfoClick,
 }) => {
     return (
         <Fragment>
@@ -23,22 +24,26 @@ const MovieList = ({
                     const {
                         id,
                         title,
+                        name,
                         overview,
                         poster_path,
                         release_date,
+                        first_air_date,
                         vote_average,
                     } = item;
                     return (
                         <MovieListItem
+                            id={id}
                             key={id}
-                            title={title}
+                            title={title || name}
                             overview={overview}
                             posterPath={poster_path}
-                            releaseDate={release_date}
+                            releaseDate={release_date || first_air_date}
                             voteAverage={vote_average}
-                            onFavoritesButtonClick={() =>
-                                onFavoritesButtonClick(item)
+                            onFavoritesButtonToggle={() =>
+                                onFavoritesButtonToggle(item)
                             }
+                            onMoreInfoClick={() => onMoreInfoClick(id)}
                         />
                     );
                 })}
@@ -57,9 +62,10 @@ const MovieList = ({
 MovieList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     onButtonLoadMoreClick: PropTypes.func.isRequired,
-    onFavoritesButtonClick: PropTypes.func.isRequired,
+    onFavoritesButtonToggle: PropTypes.func.isRequired,
     popular: PropTypes.bool.isRequired,
     category: PropTypes.string.isRequired,
+    onMoreInfoClick: PropTypes.func.isRequired,
 };
 
 export default MovieList;

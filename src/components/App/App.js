@@ -4,7 +4,6 @@ import { fetchItems, popularFetchItems } from '../../services/fetch';
 import SearchForm from '../SearchForm/SearchForm';
 import MovieList from '../MovieList/MovieList';
 import PersonList from '../PersonList/PersonList';
-import TvShowsList from '../TvShowsList/TvShowsList';
 import FavoritesList from '../FavoritesList/FavoritesList';
 import styles from '../styles.module.css';
 import Loader from '../Loader/Loader';
@@ -19,7 +18,7 @@ class App extends Component {
         category: 'movie',
         popular: false,
         favorites: [],
-        favoritesClick: false,
+        activePage: 'FAVORITES',
     };
 
     constructor(props) {
@@ -27,7 +26,7 @@ class App extends Component {
         this.getQueryResultDebounsed = debounce(this.getQueryResult, 1000);
     }
 
-    onFavoritesButtonClick = movie => {
+    onFavoritesButtonToggle = movie => {
         return this.state.favorites.includes(movie)
             ? this.setState(state => ({
                   favorites: state.favorites.filter(item => item !== movie),
@@ -37,10 +36,6 @@ class App extends Component {
               }));
     };
 
-    onFavoritesClick = () => {
-        this.setState({ searchResult: [], favoritesClick: true });
-    };
-
     onCategoryClick = e => {
         const { inputValue, queryPage } = this.state;
         this.setState({
@@ -48,9 +43,8 @@ class App extends Component {
             popular: true,
             inputValue: '',
             searchResult: [],
-            favoritesClick: false,
+            category: e.target.name,
         });
-        this.setState({ category: e.target.name });
         popularFetchItems(inputValue, queryPage, e.target.name)
             .then(fetchData =>
                 fetchData.data.total_results > 0
@@ -71,7 +65,6 @@ class App extends Component {
             this.setState({
                 searchResult: [],
                 queryPage: 1,
-                favoritesClick: false,
             });
         }
         this.setState({ inputValue: e.target.value });
@@ -118,6 +111,20 @@ class App extends Component {
         e.preventDefault();
     };
 
+    renderActivePage = activePage => {
+        const PAGE_LIST = {
+            MOVIE: <MovieList />,
+            PERSON: <PersonList />,
+            FAVORITES: (
+                <FavoritesList
+                    items={this.favorites}
+                    onFavoritesButtonToggle={this.onFavoritesButtonToggle}
+                />
+            ),
+        };
+        return PAGE_LIST[activePage];
+    };
+
     render() {
         const {
             searchResult = [],
@@ -125,52 +132,42 @@ class App extends Component {
             inputValue,
             category,
             popular,
-            favoritesClick,
-            favorites,
+            activePage,
         } = this.state;
 
         return (
             <div className={styles.wrapper}>
                 <Header
                     onClick={this.onCategoryClick}
-                    onFavoritesClick={this.onFavoritesClick}
+                    onFavoritesClick={this.renderActivePage(activePage)}
                 />
                 <SearchForm
                     onSubmit={this.onFormaSubmit}
                     onChange={this.handleInputChange}
                     value={inputValue}
                 />
-                {favoritesClick && favorites.length > 0 && (
-                    <FavoritesList
-                        items={favorites}
-                        onFavoritesButtonClick={this.onFavoritesButtonClick}
-                    />
-                )}
+                {/* {favorites.length > 0 && <FavoritesList />} */}
                 {isLoading && <Loader />}
-                {searchResult.length > 0 && category === 'movie' && (
-                    <MovieList
-                        category={category}
-                        popular={popular}
-                        items={searchResult}
-                        onButtonLoadMoreClick={this.onButtonLoadMoreClick}
-                        onFavoritesButtonClick={this.onFavoritesButtonClick}
-                        checkInFavorites={this.checkInFavorites}
-                    />
-                )}
+                {searchResult.length > 0 &&
+                    (category === 'movie' || category === 'tv') && (
+                        <MovieList
+                            category={category}
+                            popular={popular}
+                            items={searchResult}
+                            onButtonLoadMoreClick={this.onButtonLoadMoreClick}
+                            onFavoritesButtonToggle={
+                                this.onFavoritesButtonToggle
+                            }
+                            checkInFavorites={this.checkInFavorites}
+                            onMoreInfoClick={this.onMoreInfoClick}
+                        />
+                    )}
                 {searchResult.length > 0 && category === 'person' && (
                     <PersonList
                         popular={popular}
                         category={category}
                         items={searchResult}
                         onButtonLoadMoreClick={this.onButtonLoadMoreClick}
-                    />
-                )}
-                {searchResult.length > 0 && category === 'tv' && (
-                    <TvShowsList
-                        popular={popular}
-                        items={searchResult}
-                        onButtonLoadMoreClick={this.onButtonLoadMoreClick}
-                        onFavoritesButtonClick={this.onFavoritesButtonClick}
                     />
                 )}
             </div>

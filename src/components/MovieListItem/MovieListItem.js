@@ -20,7 +20,7 @@ class MovieListItem extends Component {
             posterPath,
             releaseDate,
             voteAverage,
-            onFavoritesButtonClick,
+            onFavoritesButtonToggle,
         } = this.props;
 
         const { inFavorites } = this.state;
@@ -47,7 +47,7 @@ class MovieListItem extends Component {
                                     ? styles.inFavorites
                                     : styles.notInFavorites
                             }
-                            onClick={onFavoritesButtonClick}
+                            onClick={onFavoritesButtonToggle}
                         >
                             <i
                                 className="material-icons"
@@ -72,7 +72,7 @@ class MovieListItem extends Component {
 }
 
 MovieListItem.propTypes = {
-    onFavoritesButtonClick: PropTypes.func.isRequired,
+    onFavoritesButtonToggle: PropTypes.func.isRequired,
     posterPath: PropTypes.string,
     title: PropTypes.string,
     overview: PropTypes.string,
