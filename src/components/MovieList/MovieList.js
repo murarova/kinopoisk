@@ -7,18 +7,11 @@ import styles from '../styles.module.css';
 const MovieList = ({
     items,
     onButtonLoadMoreClick,
-    popular,
-    category,
     onFavoritesButtonToggle,
-    onMoreInfoClick,
+    favorites,
 }) => {
     return (
         <Fragment>
-            {popular && (
-                <h2 className={`${styles.popularTitle} ${styles.container}`}>
-                    Popular {category}s
-                </h2>
-            )}
             <div className={styles.container}>
                 {items.map(item => {
                     const {
@@ -43,7 +36,7 @@ const MovieList = ({
                             onFavoritesButtonToggle={() =>
                                 onFavoritesButtonToggle(item)
                             }
-                            onMoreInfoClick={() => onMoreInfoClick(id)}
+                            favorites={favorites.find(el => el.id === item.id)}
                         />
                     );
                 })}
@@ -63,9 +56,7 @@ MovieList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     onButtonLoadMoreClick: PropTypes.func.isRequired,
     onFavoritesButtonToggle: PropTypes.func.isRequired,
-    popular: PropTypes.bool.isRequired,
-    category: PropTypes.string.isRequired,
-    onMoreInfoClick: PropTypes.func.isRequired,
+    favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default MovieList;

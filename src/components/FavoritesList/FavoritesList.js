@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import FavoritesListItem from '../FavoritesListItem/FavoritesListItem';
 import styles from '../styles.module.css';
 
-const FavoritesList = ({ items, onFavoritesButtonToggle }) => {
+const FavoritesList = ({ items, onFavoritesButtonToggle, favorites }) => {
     return (
         <Fragment>
+            {items.length === 0 && <h2>Nothing add at favorites list</h2>}
             <div className={styles.container}>
                 {items.map(item => {
                     const {
@@ -31,6 +32,7 @@ const FavoritesList = ({ items, onFavoritesButtonToggle }) => {
                             onFavoritesButtonToggle={() =>
                                 onFavoritesButtonToggle(item)
                             }
+                            favorites={favorites.find(el => el.id === item.id)}
                         />
                     );
                 })}
@@ -40,8 +42,12 @@ const FavoritesList = ({ items, onFavoritesButtonToggle }) => {
 };
 
 FavoritesList.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    items: PropTypes.arrayOf(PropTypes.object),
     onFavoritesButtonToggle: PropTypes.func.isRequired,
+};
+
+FavoritesList.defaultProps = {
+    items: [],
 };
 
 export default FavoritesList;

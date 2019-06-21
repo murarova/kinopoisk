@@ -9,10 +9,15 @@ const categoryList = [
     { person: 'people' },
 ];
 
-const Header = ({ onClick, onFavoritesClick }) => (
+const Header = ({ onMenuClick, activePage }) => (
     <div className={`${styles.header} ${styles.container}`}>
         <div className={styles.leftMenu}>
-            <a href="#" className={styles.logo}>
+            <a
+                href="#"
+                className={styles.logo}
+                name="logo"
+                onClick={onMenuClick}
+            >
                 Logo
             </a>
             <ul className={styles.categoryList}>
@@ -22,9 +27,13 @@ const Header = ({ onClick, onFavoritesClick }) => (
                         key={Object.keys(category)}
                     >
                         <a
-                            className={styles.categoryItemLink}
+                            className={
+                                activePage === Object.keys(category)[0]
+                                    ? styles.categoryItemLinkActive
+                                    : styles.categoryItemLink
+                            }
                             name={Object.keys(category)}
-                            onClick={onClick}
+                            onClick={onMenuClick}
                             href="#"
                         >
                             {Object.values(category)}
@@ -37,8 +46,13 @@ const Header = ({ onClick, onFavoritesClick }) => (
         <ul className={styles.menu}>
             <li className={styles.menuItem}>
                 <a
-                    className={styles.menuItemLink}
-                    onClick={onFavoritesClick}
+                    className={
+                        activePage === 'favorites'
+                            ? styles.categoryItemLinkActive
+                            : styles.categoryItemLinkstyles
+                    }
+                    onClick={onMenuClick}
+                    name="favorites"
                     href="#"
                 >
                     Favorites
@@ -59,8 +73,8 @@ const Header = ({ onClick, onFavoritesClick }) => (
 );
 
 Header.propTypes = {
-    onClick: PropTypes.func.isRequired,
-    onFavoritesClick: PropTypes.func.isRequired,
+    onMenuClick: PropTypes.func.isRequired,
+    activePage: PropTypes.string.isRequired,
 };
 
 export default Header;

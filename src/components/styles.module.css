@@ -60,13 +60,15 @@ li {
     width: 200px;
     margin-right: 15px;
 }
-.bookDescription {
+.movieDescription {
+    position: relative;
     width: 80%;
+    height: 300px;
 }
 .desrciption {
     border-top: 1px solid #fff;
     margin: 15px 0;
-    height: 150px;
+    height: 100px;
     width: 100%;
     position: relative;
     display: -webkit-box;
@@ -77,6 +79,18 @@ li {
     font-size: 0.8em;
 }
 
+.moreInfo {
+    position: absolute;
+    display: block;
+    width: 100%;
+    border-top: 1px solid rgb(179, 179, 179);
+    padding: 10px 10px 10px 0;
+    bottom: 0;
+}
+
+.title {
+    font-size: 1.2em;
+}
 .boldText {
     font-weight: bold;
 }
@@ -154,13 +168,6 @@ li {
     background-color: #1f65d6;
 }
 
-.moreInfo {
-    display: block;
-    border-top: 1px solid rgb(179, 179, 179);
-    padding: 10px 10px 10px 0;
-    margin-top: 20px;
-}
-
 .header {
     display: flex;
     justify-content: space-between;
@@ -212,6 +219,11 @@ li {
     padding-bottom: 10px;
 }
 
+.categoryItemLinkActive {
+    composes: categoryItemLink;
+    border-bottom: 1px solid #fff;
+}
+
 .categoryItemLink:active,
 .categoryItemLink:focus,
 .menuItemLink:active,
@@ -227,30 +239,91 @@ li {
     margin-bottom: 20px;
 }
 
-.favoritesWrapper {
-    display: flex;
-    justify-content: flex-end;
+.personItem {
+    width: 15%;
+    margin-right: 2%;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+        0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 
-.notInFavorites {
+.personItem:nth-child(6n) {
+    margin-right: 0;
+}
+
+.personImgWrapper {
+    width: 100%;
+}
+
+.personImage {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
+.peopleDescription {
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.personMoreInfo {
+    display: block;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    margin-top: 5px;
+}
+
+.favoritesIcon::after {
+    content: '';
+    display: inline-block;
+    margin-left: 10px;
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+    background-position: center center;
+    background-image: url(../img/like.png);
+}
+
+.notInFavoritesIcon:after {
+    content: '';
+    display: inline-block;
+    margin-left: 10px;
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+    background-position: center center;
+    background-image: url(../img/heart.png);
+}
+
+.favoritesIcon,
+.notInFavoritesIcon {
+    display: flex;
+    height: 25px;
+    align-items: center;
+}
+
+.favoritesButton {
     border-radius: 50%;
     border: 1px solid #fff;
     background-color: #fff;
     text-decoration: none;
     padding: 5px;
     box-shadow: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     outline: 0;
 }
 
-.inFavorites {
-    composes: notInFavorites;
-    background-color: #3884ff;
+.favoritesWrapper {
+    display: flex;
+    height: 25px;
+    justify-content: flex-end;
 }
 
+/* 
 .favorites:hover,
 .favorites:focus {
     box-shadow: 0 0 1pt 1pt #3884ff;
-}
+} */

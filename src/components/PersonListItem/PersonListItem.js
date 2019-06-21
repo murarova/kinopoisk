@@ -1,50 +1,39 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-// import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import styles from '../styles.module.css';
 
-const PersonListItem = ({ title, poster_path, vote_average }) => (
-    <div className={styles.item}>
-        <div className={styles.imgWrapper}>
+const PersonListItem = ({ title, posterPath, voteAverage }) => (
+    <div className={styles.personItem}>
+        <div className={styles.personImgWrapper}>
             <img
-                className={styles.image}
-                src={`https://image.tmdb.org/t/p/w200/${poster_path}`}
+                className={styles.personImage}
+                src={`https://image.tmdb.org/t/p/w200/${posterPath}`}
                 alt={title}
             ></img>
         </div>
 
-        <div className={styles.bookDescription}>
+        <div className={styles.peopleDescription}>
             <h2>{title}</h2>
             <p>
-                Rating: <span className={styles.boldText}>{vote_average}</span>
+                Rating: <span className={styles.boldText}>{voteAverage}</span>
             </p>
-            <a className={styles.moreInfo} href="#">
+            <a className={styles.personMoreInfo} href="#">
                 More info
             </a>
         </div>
     </div>
 );
 
-// PersonListItem.propTypes = {
-//   image: PropTypes.string,
-//   title: PropTypes.string,
-//   description: PropTypes.string,
-//   authors: PropTypes.arrayOf(PropTypes.string),
-//   publisher: PropTypes.string,
-//   publishedDate: PropTypes.string,
-//   pageCount: PropTypes.number,
-//   rating: PropTypes.number
-// };
+PersonListItem.propTypes = {
+    title: PropTypes.string,
+    posterPath: PropTypes.string,
+    voteAverage: PropTypes.number.isRequired,
+};
 
-// PersonListItem.defaultProps = {
-//   image: "",
-//   title: "",
-//   description: "",
-//   authors: [],
-//   publisher: "",
-//   publishedDate: "",
-//   pageCount: null,
-//   rating: 0
-// };
+PersonListItem.defaultProps = {
+    title: '',
+    posterPath: '',
+};
 
 export default PersonListItem;
